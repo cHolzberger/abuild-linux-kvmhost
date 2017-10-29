@@ -1,30 +1,24 @@
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 
-_flavor=vanilla
+_flavor=kvm
 pkgname=linux-${_flavor}
 pkgver=4.9.54
 case $pkgver in
 	*.*.*)	_kernver=${pkgver%.*};;
 	*.*) _kernver=$pkgver;;
 esac
-pkgrel=0
-pkgdesc="Linux vanilla kernel"
+pkgrel=4
+pkgdesc="Linux kvm kernel"
 url="http://kernel.org"
 depends="mkinitfs linux-firmware"
 makedepends="perl sed installkernel bash gmp-dev bc linux-headers elfutils-dev"
 options="!strip"
-_config=${config:-config-vanilla.${CARCH}}
+_config=${config:-config-kvm.${CARCH}}
 install=
 source="https://cdn.kernel.org/pub/linux/kernel/v${pkgver%%.*}.x/linux-$_kernver.tar.xz
 	0001-HID-apple-fix-Fn-key-Magic-Keyboard-on-bluetooth.patch
-	config-vanilla.aarch64
-	config-vanilla.armhf
-	config-vanilla.x86
-	config-vanilla.x86_64
-	config-vanilla.ppc
-	config-vanilla.ppc64le
-	config-vanilla.s390x
-
+	config-kvm.x86_64
+	
 	"
 if [ "${pkgver%.0}" = "$pkgver" ]; then
 	source="$source
@@ -174,11 +168,5 @@ dev() {
 
 sha512sums="bf67ff812cc3cb7e5059e82cc5db0d9a7c5637f7ed9a42e4730c715bf7047c81ed3a571225f92a33ef0b6d65f35595bc32d773356646df2627da55e9bc7f1f1a  linux-4.9.tar.xz
 5373728be2b507c3db5e042e1d768740df7965078868afdc46418b1adc4cae3d8f9f1aedb59975a0f2acf8754340499354fcf97c503397a5d9886ccc9689b782  0001-HID-apple-fix-Fn-key-Magic-Keyboard-on-bluetooth.patch
-a4c808addf397540fccc2ac502413e3eeee5724fe29f4aac70d7accdb2808309d558d57c4ac84e0b37b5aab82a21139b7b65e67f9fb1a14e55b125f57dafc1b5  config-vanilla.aarch64
-34d33c24f76ce827fdf8b9b30dbec0bc190847b1480bbef93ed4f2251252accbce5779b8c382e6714aec35ab16d808edbbb78e07523c912b2d33ad434390c882  config-vanilla.armhf
-da420b977aa94cb3a501c1733e561a0a2536be3cc3873531aa7727c8f2c3d782af9c349e414a8cbf3820f2bb2e0822a21c3d1861df484d1d98a470b838a3b442  config-vanilla.x86
-2cada87e7ecfcdf6d0506af6885fb1d076b91a7f51940541101c77374ce454d40eb2db3d0cfb96e756714afa1d8f891b9350717fc60ede1ab034534882c648a7  config-vanilla.x86_64
-ee565e219530bcfaf5cade2622432cfb83743bdbbfc388781901461f19ca553b7fdee3c81ce6b34225ef78a209eb60088630284fcbb0430947aad77a5d8a0865  config-vanilla.ppc
-1bf5c9f6973a1866c697f474bce82a54bf903a9ed721fedd54606961f434d2c5556e9a01453707b90154c61b70089a2868eae6b609f05a0bcf11e4983fc64a6d  config-vanilla.ppc64le
-040ded4603acd7d72227b8ea648876118f647d5750331c68419f057def3da4e751a13e8d73ae6d2f040e8a2eedd128415d9cf75420c1e3d5314910d11c705d95  config-vanilla.s390x
+e709c6b477b76b930bd88dd821dba34e886aac7d9622d7f4301ac277bb115d5e2e72a17964e9c81d733c85adc2397d958e9ae659c539bb2d284b9f622ec5fc3a  config-kvm.x86_64
 8ce2dbab8b8a94ef593eb40fc07b236c7b746a0eb099509fbe23ecde213384d535ad8ff4695b9cef2c5a78ecd6590fa8ded6e36c7ee17ef8dadb649ec5c074e2  patch-4.9.54.xz"
