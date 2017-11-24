@@ -2,7 +2,7 @@
 
 _flavor=kvm
 pkgname=linux-${_flavor}
-pkgver=4.9.63
+pkgver=4.14.2
 case $pkgver in
 	*.*.*)	_kernver=${pkgver%.*};;
 	*.*) _kernver=$pkgver;;
@@ -80,6 +80,14 @@ menuconfig() {
 	cp .config "$startdir"/$_config
 }
 
+oldconfig() {
+	cd "$srcdir"/build || return 1
+	make ARCH="$_carch" oldconfig
+	cp .config "$startdir"/$_config
+}
+
+
+
 build() {
 	cd "$srcdir"/build
 	unset LDFLAGS
@@ -99,7 +107,7 @@ package() {
 	*)		_install="install" ;;
 	esac
 
-	make -j1 modules_install firmware_install $_install \
+	make -j1 modules_install $_install \
 		ARCH="$_carch" \
 		INSTALL_MOD_PATH="$pkgdir" \
 		INSTALL_PATH="$pkgdir"/boot \
@@ -166,7 +174,7 @@ dev() {
 		"$subpkgdir"/lib/modules/${_abi_release}/build
 }
 
-sha512sums="bf67ff812cc3cb7e5059e82cc5db0d9a7c5637f7ed9a42e4730c715bf7047c81ed3a571225f92a33ef0b6d65f35595bc32d773356646df2627da55e9bc7f1f1a  linux-4.9.tar.xz
+sha512sums="77e43a02d766c3d73b7e25c4aafb2e931d6b16e870510c22cef0cdb05c3acb7952b8908ebad12b10ef982c6efbe286364b1544586e715cf38390e483927904d8  linux-4.14.tar.xz
 5373728be2b507c3db5e042e1d768740df7965078868afdc46418b1adc4cae3d8f9f1aedb59975a0f2acf8754340499354fcf97c503397a5d9886ccc9689b782  0001-HID-apple-fix-Fn-key-Magic-Keyboard-on-bluetooth.patch
-3ade120405fed735ba857e075e2fdd7637fe2c547f7073c35f092521e5b228f27ecb0a5e6666c2eea4601ef5b5dcc24615aacca6dc485b25a9ecbbdb5eaa1c8b  config-kvm.x86_64
-51fa0a5c19989be5326130421afe29aeb22bc7be65adbe882fc32b0b22c414e8631e3e7cefb6fecfc23545851a19211f5feddd7196934f5c84ec507b4f2984c0  patch-4.9.63.xz"
+ee0185df50d752cefcd8ac35251a4ff64999415f60ce4e649972d2c8d127518184491940a8022569e7e8e92720594300b4cf1cc3edffc6381b2f3f20f634272e  config-kvm.x86_64
+04415954c3c4d3044a6a3da979e59fb18f0eda3fd872a8036ac8947fbbadcd6041384a900973b917353de6e5c1a589eff1db63c029edcb78f38b07868a929f9d  patch-4.14.2.xz"
