@@ -2,12 +2,12 @@
 
 _flavor=kvm
 pkgname=linux-${_flavor}
-pkgver=4.9.54
+pkgver=4.9.63
 case $pkgver in
 	*.*.*)	_kernver=${pkgver%.*};;
 	*.*) _kernver=$pkgver;;
 esac
-pkgrel=4
+pkgrel=5
 pkgdesc="Linux kvm kernel"
 url="http://kernel.org"
 depends="mkinitfs linux-firmware"
@@ -28,7 +28,7 @@ subpackages="$pkgname-dev::$CBUILD_ARCH"
 arch="all"
 license="GPL2"
 
-_abi_release=${pkgver}
+_abi_release=${pkgver}-${pkgrel}-${_flavor}
 _carch=${CARCH}
 case "$_carch" in
 aarch64*) _carch="arm64" ;;
@@ -168,5 +168,5 @@ dev() {
 
 sha512sums="bf67ff812cc3cb7e5059e82cc5db0d9a7c5637f7ed9a42e4730c715bf7047c81ed3a571225f92a33ef0b6d65f35595bc32d773356646df2627da55e9bc7f1f1a  linux-4.9.tar.xz
 5373728be2b507c3db5e042e1d768740df7965078868afdc46418b1adc4cae3d8f9f1aedb59975a0f2acf8754340499354fcf97c503397a5d9886ccc9689b782  0001-HID-apple-fix-Fn-key-Magic-Keyboard-on-bluetooth.patch
-e709c6b477b76b930bd88dd821dba34e886aac7d9622d7f4301ac277bb115d5e2e72a17964e9c81d733c85adc2397d958e9ae659c539bb2d284b9f622ec5fc3a  config-kvm.x86_64
-8ce2dbab8b8a94ef593eb40fc07b236c7b746a0eb099509fbe23ecde213384d535ad8ff4695b9cef2c5a78ecd6590fa8ded6e36c7ee17ef8dadb649ec5c074e2  patch-4.9.54.xz"
+3ade120405fed735ba857e075e2fdd7637fe2c547f7073c35f092521e5b228f27ecb0a5e6666c2eea4601ef5b5dcc24615aacca6dc485b25a9ecbbdb5eaa1c8b  config-kvm.x86_64
+51fa0a5c19989be5326130421afe29aeb22bc7be65adbe882fc32b0b22c414e8631e3e7cefb6fecfc23545851a19211f5feddd7196934f5c84ec507b4f2984c0  patch-4.9.63.xz"
